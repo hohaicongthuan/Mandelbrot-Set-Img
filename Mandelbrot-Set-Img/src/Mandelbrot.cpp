@@ -3,18 +3,19 @@
 #include <complex>
 #include <iostream>
 
-#define WIDTH 512
-#define HEIGHT 512
+// Image size
+#define WIDTH 1024
+#define HEIGHT 1024
 #define MAX_COLOUR_VALUE 255
-#define MAX_INTER 500
 
-#define OFFSET_X 0
+// The more iterations, the more details the Mandelbrot
+// will be, but it'll take longer to calculate
+#define MAX_INTER 100
+
+// Change these values to move and zoom the Mandelbrot Set
+#define OFFSET_X -10
 #define OFFSET_Y 0
-#define ZOOM 500
-
-/*int PercentComplete = 0;
-int count = 0;  // Count the number of pixel printed
-*/
+#define ZOOM 350
 
 int Mandelbrot(std::complex<float> c) {
     std::complex<float> z (0.0, 0.0);
@@ -35,12 +36,13 @@ int main() {
     img << MAX_COLOUR_VALUE << std::endl;
 
     std::cout << "Printing the image...\n";
-    std::cout << "0% completed...\n";
 
-    for (int x = 0; x < WIDTH; x++) {
-        for (int y = 0; y < HEIGHT; y++) {
-            std::complex<float> c (float((OFFSET_Y+y-float(WIDTH/2))/ZOOM),
-                                float((-(OFFSET_X+x-float(HEIGHT/2))/ZOOM)));
+    for (int y = 0; y < HEIGHT; y++) {
+        for (int x = 0; x < WIDTH; x++) {
+            auto x_coord = float((OFFSET_X + x - 150 - float(WIDTH / 2)) / ZOOM);
+            auto y_coord = float((-(OFFSET_Y + y - float(HEIGHT / 2)) / ZOOM));
+            
+            std::complex<float> c (x_coord, y_coord);
             int m = Mandelbrot(c);
 
             int r = m;
@@ -49,13 +51,6 @@ int main() {
 
             img << r << " " << g << " " << b << " ";
 
-            /*count++;
-            PercentComplete = (count / (512 * 512)) * 100;
-            //std::cout << count << "\t" << PercentComplete << std::endl;
-            if (PercentComplete == 25) std::cout << "25% completed...\n";
-            else if (PercentComplete == 50) std::cout << "50% completed...\n";
-            else if (PercentComplete == 75) std::cout << "75% completed...\n";
-            else if (PercentComplete == 100) std::cout << "100% completed...\n";*/
         }
         img << std::endl;
 
