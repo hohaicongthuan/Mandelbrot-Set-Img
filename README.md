@@ -3,7 +3,7 @@
 
 #### This code will generate an image (in .ppm format) of the Mandelbrot Set. The size of the image, and all other parameters can be modified directly in the source code.
 
-## What is a Mandelbrot Set?
+## What is the Mandelbrot Set?
  According to Wikipedia:
 > *The Mandelbrot set is the set of complex numbers c for which the function f_{c}(z)=z^2 + c does not diverge when iterated from z = 0, i.e., for which the sequence f_{c}(0), f_{c}(f_{c}(0)), etc., remains bounded in absolute value.*
 
