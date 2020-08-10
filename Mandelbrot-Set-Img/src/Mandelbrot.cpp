@@ -12,11 +12,15 @@
 #define OFFSET_Y 0
 #define ZOOM 500
 
+/*int PercentComplete = 0;
+int count = 0;  // Count the number of pixel printed
+*/
+
 int Mandelbrot(std::complex<float> c) {
     std::complex<float> z (0.0, 0.0);
     int n = 0;
 
-    while  (abs(z) <= 2 and n < MAX_INTER) {
+    while (abs(z) <= 2 and n < MAX_INTER) {
         z = z * z + c;
         n++;
     }
@@ -31,6 +35,7 @@ int main() {
     img << MAX_COLOUR_VALUE << std::endl;
 
     std::cout << "Printing the image...\n";
+    std::cout << "0% completed...\n";
 
     for (int x = 0; x < WIDTH; x++) {
         for (int y = 0; y < HEIGHT; y++) {
@@ -43,8 +48,17 @@ int main() {
             int b = m;
 
             img << r << " " << g << " " << b << " ";
+
+            /*count++;
+            PercentComplete = (count / (512 * 512)) * 100;
+            //std::cout << count << "\t" << PercentComplete << std::endl;
+            if (PercentComplete == 25) std::cout << "25% completed...\n";
+            else if (PercentComplete == 50) std::cout << "50% completed...\n";
+            else if (PercentComplete == 75) std::cout << "75% completed...\n";
+            else if (PercentComplete == 100) std::cout << "100% completed...\n";*/
         }
         img << std::endl;
+
     }
 
     std::cout << "Done printing!\n";
