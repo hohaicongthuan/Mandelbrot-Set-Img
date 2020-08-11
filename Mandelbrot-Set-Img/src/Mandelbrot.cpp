@@ -2,6 +2,7 @@
 #include <cmath>
 #include <complex>
 #include <iostream>
+#include <Windows.h>
 
 // Image size
 #define WIDTH 1024
@@ -57,6 +58,12 @@ int main() {
     }
 
     std::cout << "Done printing!\n";
+    
+    // Open the generated image in its associated programme
+    // using ShellExecute
+    std::cout << "Opening the file...\n";
+    ShellExecute(0, 0, L"mandelbrot.ppm", 0, 0, SW_SHOW);
+    
     std::cin.get();
     return 0;
 }
