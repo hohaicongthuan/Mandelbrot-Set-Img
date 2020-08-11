@@ -15,7 +15,7 @@ Basically, you __take one pixel__ in the image and __convert__ the coordinate of
 About the __function__ that __checks__ whether a position in the complex plane __belongs to the Mandelbrot Set__, it just __does__ a lot of __iterations__ to __check if__ the given coordinates __satisfies__
 > the function f_{c}(z)=z^2 + c does not diverge when iterated from z = 0
 
-and you are the person that specifies the number of iteration. The __more__ the number of __iteration__. the __more detail__ the Mandelbrot is and the __more time__ it'll take __to render__ the image.
+and we can specify the number of iteration. The __more__ the number of __iteration__. the __more detail__ the Mandelbrot is and the __more time__ it'll take __to render__ the image.
 
 Do some __researches__ yourself on how to __convert pixel coordinates to complex coordinate__.
 
