@@ -1,7 +1,7 @@
 # Mandelbrot-Set-Img
 > ### My attempt at writing a programme that generates an image of the Mandelbrot Set.
 
-#### This code will generate an image (in .ppm format) of the Mandelbrot Set. The size of the image, and all other parameters can be modified directly in the source code.
+#### This code will generate an image (in .ppm format) of the Mandelbrot Set. The size of the image, and all other parameters can be modified directly in the source code or type in while the programme is running. Command line arguments are being added.
 
 ## What is the Mandelbrot Set?
  According to [Wikipedia](https://en.wikipedia.org/wiki/Mandelbrot_set):
