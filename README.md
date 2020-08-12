@@ -14,7 +14,7 @@ Basically:
 * You __take one pixel__ in the image and __convert__ the coordinate of that pixel (an image is a matrix of pixels) __into__ the __complex coordinate plane__.
 * And then pass those complex coordinates to a function that __checks__ whether __that position__ in the complex coordinate plane __belongs to the Mandelbrot Set__.
   * If __it does__, __return black value__ of the pixel.
-  * If __it doesn't__, __return white value__ of the pixel 
+  * If __it doesn't__, __return white value__ of the pixel.
 > *(it doesn't matter which colour value to return, the choice is up to you, as long as it's two distinguishable colour value, one for value in the Mandelbrot set and one for the one that isn't)*.
   * And then just __repeat__ all the __above steps__ for __all the pixels__ in the image.
 > (Hope I explained it clear enough)
