@@ -26,3 +26,54 @@ int Mandelbrot(std::complex<float> c) {
     else return 0;
 }
 
+// Convert strings to numbers
+int number(char* string) {
+    int i = 0, num = 0;
+
+    while (string[i] != NULL) {
+        if (string[i] < 48 && string[i] > 57)
+            // the string has characters that's not digits
+            return -1;
+        
+        num *= 10;
+        num += string[i] - 48;
+        
+        i++;
+    }
+    return num;
+}
+
+void PrintImage() {
+    std::ofstream img("mandelbrot.ppm");
+    img << "P3" << std::endl;
+    img << WIDTH << " " << HEIGHT << std::endl;
+    img << MAX_COLOUR_VALUE << std::endl;
+
+    std::cout << "Printing the image...\n";
+
+    for (int y = 0; y < HEIGHT; y++) {
+        for (int x = 0; x < WIDTH; x++) {
+            auto x_coord = float((OFFSET_X + x - 150 - float(WIDTH / 2)) / ZOOM);
+            auto y_coord = float((-(OFFSET_Y + y - float(HEIGHT / 2)) / ZOOM));
+
+            std::complex<float> c(x_coord, y_coord);
+            int m = Mandelbrot(c);
+
+            int r = m;
+            int g = m;
+            int b = m;
+
+            img << r << " " << g << " " << b << " ";
+
+        }
+        img << std::endl;
+
+    }
+    std::cout << "Done printing!\n";
+}
+
+void help() {
+    std::cout << "Usage:\n";
+    std::cout << "Updating...\n";
+}
+

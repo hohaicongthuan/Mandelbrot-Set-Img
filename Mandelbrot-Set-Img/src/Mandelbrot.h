@@ -21,3 +21,6 @@ extern int OFFSET_Y;
 extern int ZOOM;
 
 int Mandelbrot(std::complex<float> c);
+int number(char* string);
+void PrintImage();
+void help(); // Show help for --help option

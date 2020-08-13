@@ -16,53 +16,142 @@
 
 int main(int argc, char* argv[]) {
     int ans;
-    do {
-        system("cls");
-        std::cout << "Default or Manual?\n";
-        std::cout << "1. Default: default settings will be used to generate the image.\n";
-        std::cout << "2. Manual: manually enter parameters to generate the image.\n";
-        std::cout << "Your answer: ";
-        std::cin >> ans;
-    } while (ans != 1 && ans != 2);
-    std::cout << std::endl;
+    
+    // if the programme takes no arguments
+    if (argc < 2) {
+        do {
+            system("cls");
+            std::cout << "Default or Manual?\n";
+            std::cout << "1. Default: default settings will be used to generate the image.\n";
+            std::cout << "2. Manual: manually enter parameters to generate the image.\n";
+            std::cout << "Your answer: ";
+            std::cin >> ans;
+        } while (ans != 1 && ans != 2);
+        std::cout << std::endl;
 
-    if (ans == 2) {
-        std::cout << "Enter image size X & Y: ";
-        std::cin >> WIDTH >> HEIGHT;
-        std::cout << "Enter maximum iteration: ";
-        std::cin >> MAX_ITER;
-        std::cout << "Enter zoom: ";
-        std::cin >> ZOOM;
-        std::cout << "Enter offset X & Y: ";
-        std::cin >> OFFSET_X >> OFFSET_Y;
-    }
-
-    std::ofstream img("mandelbrot.ppm");
-    img << "P3" << std::endl;
-    img << WIDTH << " " << HEIGHT << std::endl;
-    img << MAX_COLOUR_VALUE << std::endl;
-
-    std::cout << "Printing the image...\n";
-
-    for (int y = 0; y < HEIGHT; y++) {
-        for (int x = 0; x < WIDTH; x++) {
-            auto x_coord = float((OFFSET_X + x - 150 - float(WIDTH / 2)) / ZOOM);
-            auto y_coord = float((-(OFFSET_Y + y - float(HEIGHT / 2)) / ZOOM));
-
-            std::complex<float> c(x_coord, y_coord);
-            int m = Mandelbrot(c);
-
-            int r = m;
-            int g = m;
-            int b = m;
-
-            img << r << " " << g << " " << b << " ";
-
+        if (ans == 2) {
+            std::cout << "Enter image size X & Y: ";
+            std::cin >> WIDTH >> HEIGHT;
+            std::cout << "Enter maximum iteration: ";
+            std::cin >> MAX_ITER;
+            std::cout << "Enter zoom: ";
+            std::cin >> ZOOM;
+            std::cout << "Enter offset X & Y: ";
+            std::cin >> OFFSET_X >> OFFSET_Y;
         }
-        img << std::endl;
 
+        PrintImage();
     }
-    std::cout << "Done printing!\n";
+    // The programme has some arguments
+    else {
+        // Command-line arguments parser
+        for (int i = 1; i < argc; i++) {
+
+            // Parse --imgsize option
+            if (argv[i] == "--imgsize" || argv[i] == "-i") {
+
+                // if there's no arguments after --imgsize
+                if (argv[i + 1] == NULL || argv[i + 2] == NULL) {
+                    std::cout << "Invalid arguments";
+                    return 1;
+                }
+
+                int x = number(argv[i + 1]);
+                int y = number(argv[i + 2]);
+
+                // if the argument after --imgsize is not number
+                if (x == -1) {
+                    std::cout << "Invalid arguments";
+                    return 1;
+                }
+
+                // If one argument only is assigned to --imgsize
+                // it'll assume that the image is square, has the same
+                // WIDTH and HEIGHT
+                if (y == -1) {
+                    WIDTH = x;
+                    HEIGHT = x;
+                }
+                else {
+                    WIDTH = x;
+                    HEIGHT = y;
+                }
+            }
+
+            // Parse --offset option
+            if (argv[i] == "--offset" || argv[i] == "-o") {
+
+                // if there's no arguments after --offset
+                if (argv[i + 1] == NULL || argv[i + 2] == NULL) {
+                    std::cout << "Invalid arguments";
+                    return 1;
+                }
+
+                int x = number(argv[i + 1]);
+                int y = number(argv[i + 2]);
+
+                // if the argument after --offset is not number
+                if (x == -1) {
+                    std::cout << "Invalid arguments";
+                    return 1;
+                }
+
+                // If one argument only is assigned to --offset
+                // it'll assume that Offset_X and Offset_Y have
+                // the same value
+                if (y == -1) {
+                    OFFSET_X = x;
+                    OFFSET_Y = x;
+                }
+                else {
+                    OFFSET_X = x;
+                    OFFSET_Y = y;
+                }
+            }
+
+            // Parse --maxiter option
+            if (argv[i] == "--maxiter" || argv[i] == "-m") {
+                // if there's no arguments after --maxiter
+                if (argv[i + 1] == NULL) {
+                    std::cout << "Invalid arguments";
+                    return 1;
+                }
+
+                int x = number(argv[i + 1]);
+
+                // if the argument after --maxiter is not number
+                if (x == -1) {
+                    std::cout << "Invalid arguments";
+                    return 1;
+                }
+
+                MAX_ITER = x;
+            }
+
+            // Parse --zoom option
+            if (argv[i] == "--zoom" || argv[i] == "-z") {
+                // if there's no arguments after --zoom
+                if (argv[i + 1] == NULL) {
+                    std::cout << "Invalid arguments";
+                    return 1;
+                }
+
+                int x = number(argv[i + 1]);
+
+                // if the argument after --zoom is not number
+                if (x == -1) {
+                    std::cout << "Invalid arguments";
+                    return 1;
+                }
+
+                ZOOM = x;
+            }
+
+            //Parse --help option
+            if (argv[i] == "--help" || argv[i] == "-h") help();
+        }
+        PrintImage();
+    }
 
     // Open the generated image in its associated programme
     // using ShellExecute
