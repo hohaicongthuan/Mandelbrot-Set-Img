@@ -74,6 +74,11 @@ void PrintImage() {
 
 void help() {
     std::cout << "Usage:\n";
-    std::cout << "Updating...\n";
+    std::cout << "-i or --imgsize [int sizeX] [int sizeY]\tspecify the size of the image\n";
+    std::cout << "\tif there's no argument for sizeY, the programme'll assume that the image is square.\n";
+    std::cout << "-o or --offset [int offsetX] [int offsetY]\tspecify offset X & Y\n";
+    std::cout << "\tif there's no argument for offsetY, the programme'll assume that offset X  & Y have the same value.\n";
+    std::cout << "-m or --maxiter [int max_iter]\tspecify maximum iteration\n";
+    std::cout << "-z or --zoom [int zoom]\tspecify zoom\n";
 }
 
